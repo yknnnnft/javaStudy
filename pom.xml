@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>jp.co.nrl.selftest</groupId>
   <artifactId>selftest</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.1.0</version>
     <properties>
         <flyway.version>4.0.3</flyway.version>
     </properties>
@@ -36,14 +36,33 @@
 		  <archive><manifest><mainClass>selftest.TestExecutor</mainClass></manifest></archive>
 		</configuration>
 	  </plugin>
+	   <plugin>
+		  <groupId>org.apache.maven.plugins</groupId>
+		  <artifactId>maven-jar-plugin</artifactId>
+		  <configuration>
+			<archive>
+			  <manifest>
+			    <mainClass>selftest.TestExecutor</mainClass>
+				<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+				<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+			  </manifest>
+			</archive>
+		  </configuration>
+		</plugin>
     </plugins>
   </build>
   <dependencies>
-          <dependency>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-core</artifactId>
-            <version>${flyway.version}</version>
-        </dependency>
+	<dependency>
+		<groupId>org.flywaydb</groupId>
+		<artifactId>flyway-core</artifactId>
+		<version>${flyway.version}</version>
+	</dependency>
+	<dependency>
+	  <groupId>org.apache.maven.plugins</groupId>
+	  <artifactId>maven-jar-plugin</artifactId>
+	  <version>3.0.2</version>
+	  <type>maven-plugin</type>
+	</dependency>
   	<dependency>
   		<groupId>org.apache.httpcomponents</groupId>
   		<artifactId>httpclient</artifactId>

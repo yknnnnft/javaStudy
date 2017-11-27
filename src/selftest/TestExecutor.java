@@ -4,22 +4,21 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Enumeration;
+import java.util.Map;
+import java.util.Properties;
+
+import selftest.algo.AlgoExerTester;
+import selftest.algo.AlgoExerTesterFactory;
+import selftest.algo.OrderExer;
+import selftest.algo.OrderExerFactory;
 
 public class TestExecutor {
 	
 	private static void httpTesterExec() {
 		System.out.println("test 1: test case when not using proxy");
 		HttpTester ht_noneproxy = new HttpTester();
-		System.out.println(ht_noneproxy.exec(false));
-		System.out.println("test 1 ended");
-		System.out.println("test 2: test case when using system properties");
-		HttpTester ht_usesystem = new HttpTester();
-		System.out.println(ht_usesystem.exec(true));
-		System.out.println("test 2 ended");
-		System.out.println("test 3: test case when using built-in proxy");
-		HttpTester ht_proxy = new HttpTester();
-		System.out.println(ht_proxy.exec());
-		System.out.println("test 3 ended");
+		ht_noneproxy.exec(false);
 	}
 	
 	private static void inheritTestExec() {
@@ -56,6 +55,11 @@ public class TestExecutor {
 	private static void uriTestExec() {
 		URITester ut = new URITester();
 		ut.exec();
+	}
+	
+	private static void MD5TesterExec() {
+		MD5Tester mt = new MD5Tester();
+		mt.exec();
 	}
 	
 	private static void flyWayTestExec() {
@@ -107,12 +111,11 @@ public class TestExecutor {
 	}
 
 	private static void oddExec() {
-		StringBuilder sbDirParameter = new StringBuilder("-D");
-		sbDirParameter.append("update_package_directory")    // keep same with updater-self-update.SelfUpdater.DIR_PARAM_KEY
-					  .append("=\"")
-					  .append("update_pd")
-					  .append("\"");	
-		System.out.println(sbDirParameter.toString());
+		
+	}
+	
+	private static void pr(String s) {
+		System.out.println(s);
 	}
 	
 	private static void streamTesterExec() {
@@ -125,11 +128,29 @@ public class TestExecutor {
 		mtt.exec();
 	}
 
+	private static void versionTesterExec() {
+		VersionTester vt = new VersionTester();
+		vt.exec();
+	}
 	
+	private static void timeTester() {
+		TimeTester tt = new TimeTester();
+		tt.exec();
+	}
+	
+	private static void algoTester() {
+		AlgoExerTester aet = AlgoExerTesterFactory.getTester(1);
+		aet.exec();
+	}
+	
+	private static void orderTester() {
+		OrderExer oe = OrderExerFactory.getInstance(OrderExerFactory.OrderExercises.MergeOrder);
+		oe.exec();
+	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		System.out.println("start up from executor");
-		multiThreadTesterExec();
+		orderTester();
 	}
 
 }

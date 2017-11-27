@@ -6,6 +6,7 @@ import java.net.URISyntaxException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class URITester {
 
@@ -23,16 +24,9 @@ public class URITester {
 	
 	
 	public void exec() {
-		try {
-			setURI();
-			testRelative();
-		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		this.uriPath = Paths.get(uri);
+		System.out.println(uriPath.getFileName());
+
 	}
 	
 	private void setURI() throws URISyntaxException, UnsupportedEncodingException {
@@ -56,11 +50,17 @@ public class URITester {
 	private void setPath() {
 		
 	}
+
     private String getRelativePath(String parent, String child) {
     	if (!child.startsWith(parent)) {
     		return child;
     	}
     	int startIndex = parent.endsWith("/") ? parent.length() : parent.length() + 1;
     	return child.substring(startIndex);
+    }
+
+    private Path getRelative(Path par, Path child) {
+    	Path rel = par.relativize(child);
+    	return rel;
     }
 }

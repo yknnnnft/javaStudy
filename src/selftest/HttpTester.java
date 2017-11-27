@@ -4,16 +4,18 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Properties;
 
+import org.apache.http.HttpClientConnection;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.conn.HttpClientConnectionManager;
 import org.apache.http.impl.client.HttpClientBuilder;
 
 public class HttpTester {
 	
-	private static String YAHOO = "www.yahoo.co.jp";
+	private static String YAHOO = "maya.internal.worksap.com:17000/CPNYCJK/td";
 	
 	private class Proxy {
 		
@@ -32,7 +34,7 @@ public class HttpTester {
 	}
 	private URI makeUri() throws URISyntaxException {
 		URI uri = new URIBuilder()
-				.setScheme("https")
+				.setScheme("http")
 				.setHost(YAHOO)
 				.build();
 		
@@ -44,11 +46,13 @@ public class HttpTester {
 		String responseMessage = null;
 		
 		try {
+			System.out.println("exec starts");
 			HttpPost hp = new HttpPost(makeUri());
 			
 			HttpClient hc = getClient(getProxy());
 			HttpResponse hr = hc.execute(hp);
 			responseMessage = hr.toString();
+			System.out.println(responseMessage);
 			
 		}
 		catch(Exception e) {
@@ -68,6 +72,9 @@ public class HttpTester {
 			HttpClient hc = getClient(useProxy);
 			HttpResponse hr = hc.execute(hp);
 			responseMessage = hr.toString();
+			System.out.println(responseMessage);
+			System.out.println(hr.getStatusLine());
+			System.out.println(hr.getEntity().getContentType().getValue());
 			
 		}
 		catch(Exception e) {
