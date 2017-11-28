@@ -7,7 +7,7 @@ public class MergeOrderExer extends OrderExer {
 	@Override
 	public void work() {
 		Integer[] result = execList(RNDLIST);
-		print("result: ", result);
+		print(result);
 	}
 	
 	private Integer[] execList(Integer[] arr) {
@@ -16,8 +16,6 @@ public class MergeOrderExer extends OrderExer {
 		int halfPoint = maxPoint / 2;
 		Integer[] pre = Arrays.copyOfRange(arr, 0, halfPoint);
 		Integer[] post = Arrays.copyOfRange(arr, halfPoint, maxPoint);
-//		print("pre in execList: ", pre);
-//		print("post in execList: ", post);
 		result = merge(pre, post);
 		return result;
 	}
@@ -28,19 +26,12 @@ public class MergeOrderExer extends OrderExer {
 		Integer[] afterPost = post;
 		if (pre.length > 1) {
 			afterPre = execList(pre);
-//			print("afterPre in merge: ", afterPre);
 		}
 		if (post.length > 1) {
 			afterPost = execList(post);
-//			print("afterPost in merge: ", afterPost);
 		}
-//		print("length > 1, pre: ", afterPre);
-//		print("length > 1, post: ", afterPost);
 		int indexInPre = 0, indexInPost = 0, indexInResult = 0;
 		while (indexInPre < afterPre.length || indexInPost < afterPost.length) {
-//			System.out.println("indexInPre: " + indexInPre);
-//			System.out.println("indexInPost: " + indexInPost);
-//			System.out.println("indexInResult: " + indexInResult);
 			if (indexInPre == afterPre.length) {
 				result[indexInResult++] = afterPost[indexInPost++];
 				continue;

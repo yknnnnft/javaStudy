@@ -5,8 +5,8 @@ import java.util.Random;
 public abstract class OrderExer extends AlgoExerTester {
 
 	protected Integer[] RNDLIST;
-	protected final int ARRAY_SIZE = 30;
-	protected final int BOUND = 100;
+	protected final int ARRAY_SIZE = 10000000;
+	protected final int BOUND = Integer.MAX_VALUE;
 	protected Random RND = new Random(47);
 	
 	{
@@ -21,7 +21,7 @@ public abstract class OrderExer extends AlgoExerTester {
 		for (int i = 0; i < ARRAY_SIZE; i++) {
 			RNDLIST[i] = RND.nextInt(BOUND);
 		}
-		print(RNDLIST);
+//		print(RNDLIST);
 	}
 	
 	protected void print(Integer[] arr) {
@@ -34,8 +34,12 @@ public abstract class OrderExer extends AlgoExerTester {
 	
 	private String arrayToString(Integer[] arr) {
 		StringBuilder sb = new StringBuilder("[ ");
-		for (Integer i: arr) {
-			sb.append(i).append(" ");
+		int i = 0;
+		while (i < 30 && i < arr.length) {
+			sb.append(arr[i++]).append(" ");
+		}
+		if (i < arr.length) {
+			sb.append("...");
 		}
 		sb.append(" ]");
 		return sb.toString();
