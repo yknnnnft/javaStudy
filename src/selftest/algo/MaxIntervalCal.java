@@ -17,27 +17,19 @@ public class MaxIntervalCal extends AlgoExerTester {
 	public MaxIntervalCal() {
 		INT_LIST = new ArrayList<Integer>();
 	}
+	@Override
+	public void init() {
+		INT_LIST = listGenerate();
+	}
 	/*
 	 * workInRegular(): usedTime(1736ms)@LIST_SIZE(10000000)
 	 */
 	@Override
-	public void exec() {
-		INT_LIST = listGenerate();
-//		System.out.println(INT_LIST);
-		long startTime = System.currentTimeMillis();
+	public void work() {
 		int interval = workInRegular();
 		System.out.println("Max Interval: " + interval);
 		System.out.println("start at: " + startIndex + "; end at: " + endIndex);
 		System.out.println("Test: start value: " + INT_LIST.get(startIndex) + "; end value: " + INT_LIST.get(endIndex) + "; sameValue: " + sameValue);
-		long endTime = System.currentTimeMillis();
-		long usedTime = endTime - startTime;
-		System.out.println(String.format("Time used: %sm%ss, %s ms", usedTime / 1000 / 60, (usedTime / 1000) % 60, usedTime));
-	}
-	
-	private int work() {
-		int interval = 0;
-		
-		return interval;
 	}
 	
 	private Integer[] separateList(Integer[] oldList) {

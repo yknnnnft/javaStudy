@@ -4,14 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Enumeration;
-import java.util.Map;
-import java.util.Properties;
 
 import selftest.algo.AlgoExerTester;
 import selftest.algo.AlgoExerTesterFactory;
-import selftest.algo.OrderExer;
-import selftest.algo.OrderExerFactory;
 
 public class TestExecutor {
 	
@@ -144,8 +139,8 @@ public class TestExecutor {
 	}
 	
 	private static void orderTester() {
-		OrderExer oe = OrderExerFactory.getInstance(OrderExerFactory.OrderExercises.MergeOrder);
-		oe.exec();
+		AlgoExerTester aet = AlgoExerTesterFactory.getTester(2);
+		aet.exec();
 	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

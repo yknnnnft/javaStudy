@@ -4,7 +4,8 @@ public class AlgoExerTesterFactory {
 
 	public static enum Exercise {
 		
-		MAX_INTERVAL(1);
+		MAX_INTERVAL(1),
+		MERGE_ORDER(2);
 		
 		private int exerNo;
 		
@@ -29,8 +30,10 @@ public class AlgoExerTesterFactory {
 		Exercise e = Exercise.getExercise(exerNo);
 		switch (e) {
 			case MAX_INTERVAL:
-			default:
 				aet = new MaxIntervalCal();
+			case MERGE_ORDER:
+				aet = new MergeOrderExer();
+			default:
 		}
 		return aet;
 	}
