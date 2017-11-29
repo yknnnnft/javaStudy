@@ -7,7 +7,8 @@ public class AlgoExerTesterFactory {
 		MAX_INTERVAL,
 		MERGE_SORT,
 		BUBBLE_SORT,
-		INSERT_SORT;
+		INSERT_SORT,
+		QUICK_SORT;
 		
 	}
 	
@@ -32,8 +33,13 @@ public class AlgoExerTesterFactory {
 				System.out.println("Test to execute: " + Exercise.INSERT_SORT);
 				aet = new InsertSortExer();
 				break;
+			case QUICK_SORT:
+				System.out.println("Test to execute: " + Exercise.QUICK_SORT);
+				aet = new QuickSortExer();
+				break;
 			default:
 		}
+
 		return aet;
 	}
 }

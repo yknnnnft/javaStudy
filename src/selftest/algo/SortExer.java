@@ -5,7 +5,7 @@ import java.util.Random;
 public abstract class SortExer extends AlgoExerTester {
 
 	protected Integer[] RNDLIST;
-	protected final int ARRAY_SIZE = 100000;
+	protected final int ARRAY_SIZE = 10000000;
 	protected final int BOUND = Integer.MAX_VALUE;
 	protected Random RND = new Random(47);
 	
@@ -21,17 +21,25 @@ public abstract class SortExer extends AlgoExerTester {
 	}
 	
 	protected void print(Integer[] arr) {
-		System.out.println(arrayToString(arr));
+		print(arr, false);
 	}
 	
 	protected void print(String s, Integer[] arr) {
-		System.out.println(s + arrayToString(arr));
+		System.out.println(s + arrayToString(arr, false));
 	}
 	
-	private String arrayToString(Integer[] arr) {
+	protected void print(Integer[] arr, boolean useFull) {
+		System.out.println(arrayToString(arr, useFull));
+	}
+	
+	protected void print(String s, Integer[] arr, boolean useFull) {
+		System.out.println(s + arrayToString(arr, useFull));
+	}
+
+	private String arrayToString(Integer[] arr, boolean useFull) {
 		StringBuilder sb = new StringBuilder("[ ");
 		int i = 0;
-		while (i < 30 && i < arr.length) {
+		while ((i < 30 || useFull) && i < arr.length) {
 			sb.append(arr[i++]).append(" ");
 		}
 		if (i < arr.length) {
