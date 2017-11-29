@@ -96,12 +96,12 @@ public class TestExecutor {
 	}
 	
 	private static void algoTester() {
-		AlgoExerTester aet = AlgoExerTesterFactory.getTester(1);
+		AlgoExerTester aet = AlgoExerTesterFactory.getTester(AlgoExerTesterFactory.Exercise.MAX_INTERVAL);
 		aet.exec();
 	}
 	
 	private static void orderTester() {
-		AlgoExerTester aet = AlgoExerTesterFactory.getTester(2);
+		AlgoExerTester aet = AlgoExerTesterFactory.getTester(AlgoExerTesterFactory.Exercise.BUBBLE_ORDER);
 		aet.exec();
 	}
 	public static void main(String[] args) {

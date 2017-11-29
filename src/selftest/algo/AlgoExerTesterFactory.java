@@ -5,7 +5,8 @@ public class AlgoExerTesterFactory {
 	public static enum Exercise {
 		
 		MAX_INTERVAL(1),
-		MERGE_ORDER(2);
+		MERGE_ORDER(2),
+		BUBBLE_ORDER(3);
 		
 		private int exerNo;
 		
@@ -24,15 +25,16 @@ public class AlgoExerTesterFactory {
 		
 	}
 	
-	public static AlgoExerTester getTester(int exerNo) {
-		
+	public static AlgoExerTester getTester(Exercise exer) {
+
 		AlgoExerTester aet = null;
-		Exercise e = Exercise.getExercise(exerNo);
-		switch (e) {
+		switch (exer) {
 			case MAX_INTERVAL:
 				aet = new MaxIntervalCal();
 			case MERGE_ORDER:
 				aet = new MergeOrderExer();
+			case BUBBLE_ORDER:
+				aet = new BubbleOrderExer();
 			default:
 		}
 		return aet;
