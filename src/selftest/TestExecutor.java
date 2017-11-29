@@ -101,11 +101,16 @@ public class TestExecutor {
 	}
 	
 	private static void orderTester() {
-		AlgoExerTester aet = AlgoExerTesterFactory.getTester(AlgoExerTesterFactory.Exercise.BUBBLE_ORDER);
+		AlgoExerTester aet = null;
+		aet = AlgoExerTesterFactory.getTester(AlgoExerTesterFactory.Exercise.INSERT_ORDER);
+		aet.exec();
+		aet = AlgoExerTesterFactory.getTester(AlgoExerTesterFactory.Exercise.BUBBLE_ORDER);
+		aet.exec();
+		aet = AlgoExerTesterFactory.getTester(AlgoExerTesterFactory.Exercise.MERGE_ORDER);
 		aet.exec();
 	}
+
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		System.out.println("start up from executor");
 		orderTester();
 	}

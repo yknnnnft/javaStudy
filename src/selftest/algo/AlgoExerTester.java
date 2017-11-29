@@ -4,6 +4,7 @@ public abstract class AlgoExerTester {
 
 	public void exec(){
 //		System.out.println(INT_LIST);
+		init();
 		long startTime = System.currentTimeMillis();
 		work();
 		long endTime = System.currentTimeMillis();

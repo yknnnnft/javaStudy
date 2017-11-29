@@ -5,14 +5,10 @@ import java.util.Random;
 public abstract class OrderExer extends AlgoExerTester {
 
 	protected Integer[] RNDLIST;
-	protected final int ARRAY_SIZE = 100;
-	protected final int BOUND = 1000;
+	protected final int ARRAY_SIZE = 100000;
+	protected final int BOUND = Integer.MAX_VALUE;
 	protected Random RND = new Random(47);
 	
-	{
-		init();
-	}
-
 	public OrderExer() { }
 	
 	@Override
@@ -44,4 +40,5 @@ public abstract class OrderExer extends AlgoExerTester {
 		sb.append(" ]");
 		return sb.toString();
 	}
+
 }
