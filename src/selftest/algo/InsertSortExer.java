@@ -1,10 +1,9 @@
 package selftest.algo;
 
-public class InsertOrderExer extends OrderExer {
+public class InsertSortExer extends SortExer {
 
 	@Override
 	protected void work() {
-		print(RNDLIST);
 		Integer[] result = execList();
 		print(result);
 	}

@@ -2,7 +2,7 @@ package selftest.algo;
 
 import java.util.Arrays;
 
-public class MergeOrderExer extends OrderExer {
+public class MergeSortExer extends SortExer {
 
 	@Override
 	public void work() {

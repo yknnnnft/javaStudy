@@ -102,11 +102,11 @@ public class TestExecutor {
 	
 	private static void orderTester() {
 		AlgoExerTester aet = null;
-		aet = AlgoExerTesterFactory.getTester(AlgoExerTesterFactory.Exercise.INSERT_ORDER);
+		aet = AlgoExerTesterFactory.getTester(AlgoExerTesterFactory.Exercise.INSERT_SORT);
 		aet.exec();
-		aet = AlgoExerTesterFactory.getTester(AlgoExerTesterFactory.Exercise.BUBBLE_ORDER);
+		aet = AlgoExerTesterFactory.getTester(AlgoExerTesterFactory.Exercise.BUBBLE_SORT);
 		aet.exec();
-		aet = AlgoExerTesterFactory.getTester(AlgoExerTesterFactory.Exercise.MERGE_ORDER);
+		aet = AlgoExerTesterFactory.getTester(AlgoExerTesterFactory.Exercise.MERGE_SORT);
 		aet.exec();
 	}
 

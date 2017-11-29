@@ -2,14 +2,14 @@ package selftest.algo;
 
 import java.util.Random;
 
-public abstract class OrderExer extends AlgoExerTester {
+public abstract class SortExer extends AlgoExerTester {
 
 	protected Integer[] RNDLIST;
 	protected final int ARRAY_SIZE = 100000;
 	protected final int BOUND = Integer.MAX_VALUE;
 	protected Random RND = new Random(47);
 	
-	public OrderExer() { }
+	public SortExer() { }
 	
 	@Override
 	protected void init() {
@@ -17,7 +17,7 @@ public abstract class OrderExer extends AlgoExerTester {
 		for (int i = 0; i < ARRAY_SIZE; i++) {
 			RNDLIST[i] = RND.nextInt(BOUND);
 		}
-//		print(RNDLIST);
+		print(RNDLIST);
 	}
 	
 	protected void print(Integer[] arr) {

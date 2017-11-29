@@ -5,9 +5,9 @@ public class AlgoExerTesterFactory {
 	public static enum Exercise {
 		
 		MAX_INTERVAL,
-		MERGE_ORDER,
-		BUBBLE_ORDER,
-		INSERT_ORDER;
+		MERGE_SORT,
+		BUBBLE_SORT,
+		INSERT_SORT;
 		
 	}
 	
@@ -20,17 +20,17 @@ public class AlgoExerTesterFactory {
 				System.out.println("Test to execute: " + Exercise.MAX_INTERVAL);
 				aet = new MaxIntervalCal();
 				break;
-			case MERGE_ORDER:
-				System.out.println("Test to execute: " + Exercise.MERGE_ORDER);
-				aet = new MergeOrderExer();
+			case MERGE_SORT:
+				System.out.println("Test to execute: " + Exercise.MERGE_SORT);
+				aet = new MergeSortExer();
 				break;
-			case BUBBLE_ORDER:
-				System.out.println("Test to execute: " + Exercise.BUBBLE_ORDER);
-				aet = new BubbleOrderExer();
+			case BUBBLE_SORT:
+				System.out.println("Test to execute: " + Exercise.BUBBLE_SORT);
+				aet = new BubbleSortExer();
 				break;
-			case INSERT_ORDER:
-				System.out.println("Test to execute: " + Exercise.INSERT_ORDER);
-				aet = new InsertOrderExer();
+			case INSERT_SORT:
+				System.out.println("Test to execute: " + Exercise.INSERT_SORT);
+				aet = new InsertSortExer();
 				break;
 			default:
 		}

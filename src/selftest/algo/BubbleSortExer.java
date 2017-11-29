@@ -1,10 +1,9 @@
 package selftest.algo;
 
-public class BubbleOrderExer extends OrderExer {
+public class BubbleSortExer extends SortExer {
 
 	@Override
 	protected void work() {
-		print(RNDLIST);
 		int listLen = RNDLIST.length;
 		for (int i = 1; i < listLen; i++) {
 			for (int j = listLen - 1; j >= i; j--) {

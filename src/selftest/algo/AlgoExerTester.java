@@ -9,7 +9,7 @@ public abstract class AlgoExerTester {
 		work();
 		long endTime = System.currentTimeMillis();
 		long usedTime = endTime - startTime;
-		System.out.println(String.format("Time used: %sm%ss, %s ms", usedTime / 1000 / 60, (usedTime / 1000) % 60, usedTime));
+		System.out.println(String.format("Time used: %sm%ss (%s ms)", usedTime / 1000 / 60, (usedTime / 1000) % 60, usedTime));
 	};
 	
 	protected abstract void init();
