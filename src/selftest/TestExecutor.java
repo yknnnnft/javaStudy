@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 import selftest.algo.AlgoExerTester;
 import selftest.algo.AlgoExerTesterFactory;
@@ -68,7 +70,14 @@ public class TestExecutor {
 	}
 
 	private static void oddExec() {
-		
+		List<Integer> l = new ArrayList<Integer>();
+		l.add(1);
+		l.add(2);
+		Integer[] arr = new Integer[l.size()];
+		l.toArray(arr);
+		for (Integer i : arr) {
+			System.out.println(i);
+		}
 	}
 	
 	private static void pr(String s) {
@@ -109,6 +118,8 @@ public class TestExecutor {
 		aet = AlgoExerTesterFactory.getTester(AlgoExerTesterFactory.Exercise.MERGE_SORT);
 		aet.exec();
 		aet = AlgoExerTesterFactory.getTester(AlgoExerTesterFactory.Exercise.QUICK_SORT);
+		aet.exec();
+		aet = AlgoExerTesterFactory.getTester(AlgoExerTesterFactory.Exercise.SHELL_SORT);
 		aet.exec();
 	}
 

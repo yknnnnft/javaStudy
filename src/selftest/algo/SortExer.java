@@ -1,10 +1,12 @@
 package selftest.algo;
 
+import java.util.List;
 import java.util.Random;
 
 public abstract class SortExer extends AlgoExerTester {
 
 	protected Integer[] RNDLIST;
+	protected Integer[] result;
 	protected final int ARRAY_SIZE = 10000000;
 	protected final int BOUND = Integer.MAX_VALUE;
 	protected Random RND = new Random(47);
@@ -17,9 +19,18 @@ public abstract class SortExer extends AlgoExerTester {
 		for (int i = 0; i < ARRAY_SIZE; i++) {
 			RNDLIST[i] = RND.nextInt(BOUND);
 		}
-		print(RNDLIST);
+//		print(RNDLIST);
+		result = RNDLIST.clone();
 	}
 	
+	protected void print(List<?> list, boolean useFull) {
+		System.out.println(listToString(list, useFull));
+	}
+
+	protected void print(String s, List<?> list, boolean useFull) {
+		System.out.println(s + listToString(list, useFull));
+	}
+
 	protected void print(Integer[] arr) {
 		print(arr, false);
 	}
@@ -47,6 +58,24 @@ public abstract class SortExer extends AlgoExerTester {
 		}
 		sb.append(" ]");
 		return sb.toString();
+	}
+	
+	private String listToString(List<?> list, boolean useFull) {
+		StringBuilder sb = new StringBuilder("[ ");
+		int i = 0;
+		while ((i < 30 || useFull) && i < list.size()) {
+			sb.append(list.get(i++)).append(" ");
+		}
+		if (i < list.size())
+			sb.append("...");
+		sb.append(" ]");
+		return sb.toString();
+	}
+
+	protected void exchange(Integer[] arr, int first, int second) {
+		int temp = arr[first];
+		arr[first] = arr[second];
+		arr[second] = temp;
 	}
 
 }

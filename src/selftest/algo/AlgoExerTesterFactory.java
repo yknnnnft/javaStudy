@@ -8,7 +8,8 @@ public class AlgoExerTesterFactory {
 		MERGE_SORT,
 		BUBBLE_SORT,
 		INSERT_SORT,
-		QUICK_SORT;
+		QUICK_SORT,
+		SHELL_SORT;
 		
 	}
 	
@@ -36,6 +37,10 @@ public class AlgoExerTesterFactory {
 			case QUICK_SORT:
 				System.out.println("Test to execute: " + Exercise.QUICK_SORT);
 				aet = new QuickSortExer();
+				break;
+			case SHELL_SORT:
+				System.out.println("Test to execute: " + Exercise.SHELL_SORT);
+				aet = new ShellSortExer();
 				break;
 			default:
 		}

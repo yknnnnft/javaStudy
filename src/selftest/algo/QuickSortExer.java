@@ -5,7 +5,6 @@ public class QuickSortExer extends SortExer {
 
 	@Override
 	protected void work() {
-		Integer[] result = RNDLIST.clone();
 		sort(result, 0, result.length - 1);
 		print(result, false);
 	}
@@ -38,12 +37,5 @@ public class QuickSortExer extends SortExer {
 			exchange(arr, indexBackward, endIndex);
 		sort(arr, startIndex, indexForward - 1);
 		sort(arr, indexBackward, endIndex);
-	}
-
-	private void exchange(Integer[] arr, int first, int second) {
-//		System.out.println("exchanging arr[" + first + "]:" + arr[first] + "; arr[" + second + "]:" + arr[second]);
-		int temp = arr[first];
-		arr[first] = arr[second];
-		arr[second] = temp;
 	}
 }

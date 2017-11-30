@@ -6,7 +6,7 @@ public class MergeSortExer extends SortExer {
 
 	@Override
 	public void work() {
-		Integer[] result = execList(RNDLIST);
+		result = execList(result);
 		print(result);
 	}
 	

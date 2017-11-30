@@ -4,10 +4,27 @@ public class InsertSortExer extends SortExer {
 
 	@Override
 	protected void work() {
-		Integer[] result = execList();
+		execListInPlace();
 		print(result);
 	}
 	
+	private void execListInPlace() {
+		for (int i = 1; i < result.length; i++) {
+			int temp = result[i];
+			int j = i;
+			for (; j > 0; j--) {
+				if (temp < result[j - 1]) {
+					result[j] = result[j - 1];
+				}
+				else {
+					break;
+				}
+			}
+			result[j] = temp;
+		}
+	}
+
+	@SuppressWarnings("unused")
 	private Integer[] execList() {
 		Integer[] result = new Integer[RNDLIST.length];
 		result[0] = RNDLIST[0];
