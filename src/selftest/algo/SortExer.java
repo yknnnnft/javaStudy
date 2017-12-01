@@ -7,8 +7,8 @@ public abstract class SortExer extends AlgoExerTester {
 
 	protected Integer[] RNDLIST;
 	protected Integer[] result;
-	protected final int ARRAY_SIZE = 10000000;
-	protected final int BOUND = Integer.MAX_VALUE;
+	protected final int ARRAY_SIZE = 6;
+	protected final int BOUND = 6;
 	protected Random RND = new Random(47);
 	
 	public SortExer() { }
@@ -19,7 +19,7 @@ public abstract class SortExer extends AlgoExerTester {
 		for (int i = 0; i < ARRAY_SIZE; i++) {
 			RNDLIST[i] = RND.nextInt(BOUND);
 		}
-//		print(RNDLIST);
+		print(RNDLIST);
 		result = RNDLIST.clone();
 	}
 	
@@ -54,9 +54,9 @@ public abstract class SortExer extends AlgoExerTester {
 			sb.append(arr[i++]).append(" ");
 		}
 		if (i < arr.length) {
-			sb.append("...");
+			sb.append("... ");
 		}
-		sb.append(" ]");
+		sb.append("]");
 		return sb.toString();
 	}
 	
@@ -67,8 +67,8 @@ public abstract class SortExer extends AlgoExerTester {
 			sb.append(list.get(i++)).append(" ");
 		}
 		if (i < list.size())
-			sb.append("...");
-		sb.append(" ]");
+			sb.append("... ");
+		sb.append("]");
 		return sb.toString();
 	}
 

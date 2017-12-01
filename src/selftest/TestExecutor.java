@@ -115,17 +115,17 @@ public class TestExecutor {
 //		aet.exec();
 //		aet = AlgoExerTesterFactory.getTester(AlgoExerTesterFactory.Exercise.BUBBLE_SORT);
 //		aet.exec();
-		aet = AlgoExerTesterFactory.getTester(AlgoExerTesterFactory.Exercise.MERGE_SORT);
-		aet.exec();
+//		aet = AlgoExerTesterFactory.getTester(AlgoExerTesterFactory.Exercise.MERGE_SORT);
+//		aet.exec();
 		aet = AlgoExerTesterFactory.getTester(AlgoExerTesterFactory.Exercise.QUICK_SORT);
 		aet.exec();
-		aet = AlgoExerTesterFactory.getTester(AlgoExerTesterFactory.Exercise.SHELL_SORT);
-		aet.exec();
+//		aet = AlgoExerTesterFactory.getTester(AlgoExerTesterFactory.Exercise.SHELL_SORT);
+//		aet.exec();
 	}
 
 	public static void main(String[] args) {
 		System.out.println("start up from executor");
-		orderTester();
+		cmdExecTester();
 	}
 
 }

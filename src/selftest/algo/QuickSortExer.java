@@ -5,6 +5,7 @@ public class QuickSortExer extends SortExer {
 
 	@Override
 	protected void work() {
+		
 		sort(result, 0, result.length - 1);
 		print(result, false);
 	}
@@ -24,17 +25,14 @@ public class QuickSortExer extends SortExer {
 			}
 			while (indexForward < indexBackward) {
 				currValBackward = arr[indexBackward];
-				if (currValBackward <= pivot) {
+				if (currValBackward < pivot) {
+					exchange(arr, indexForward, indexBackward);
 					break;
 				}
 				indexBackward--;
 			}
-			if (indexForward == indexBackward)
-				break;
-			exchange(arr, indexForward, indexBackward);
 		}
-		if (indexBackward != endIndex)
-			exchange(arr, indexBackward, endIndex);
+		exchange(arr, indexForward, endIndex);
 		sort(arr, startIndex, indexForward - 1);
 		sort(arr, indexBackward, endIndex);
 	}
