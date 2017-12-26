@@ -24,7 +24,7 @@ import jcifs.smb.SmbFileInputStream;
 
 public class SmbFileTester {
 
-	private static final String SMB_FILE = "smb://pe:pe@nas177/share/hrsolap780/CompanyUpdater/test/";
+	private static final String SMB_FILE = "smb://pe:pe@nas177/share/個人用/li_re/CU/setup/test.txt";
 	private static final String SMB_DIRECTORY = "smb://pe:pe@nas177/share/hrsolap780/CompanyUpdater/CIU12200/";
 	
 	private static final String OPSTECH = "smb://zuo_y:zuo_y@opstech/installer/COMPANY UPDATER/1.2.2.00-SNAPSHOT/CIU12200/";
@@ -35,17 +35,7 @@ public class SmbFileTester {
 	private ArrayList<SmbFile> fileList = new ArrayList<SmbFile>();
 
 	public void exec() {
-//		setAccountProperties();
-//		writeFile();
-//		readRemoteDirectory();
-		try {
-			setRemoteFileList(new SmbFile(SMB_FILE));
-			readFile();
-			System.out.println(fileList);
-		} catch (SmbException | MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		readFile();
 	}
 	
 	private void writeFile() {
@@ -78,49 +68,30 @@ public class SmbFileTester {
 	
 	private String readFile() {
 		StringBuilder sb = new StringBuilder();
-		byte[] buf;
-		int len;
-		ZipOutputStream zos = null;
-		ZipEntry ze = null;
 		InputStream ifs = null;
-		OutputStream ofs = null;
 		SmbFile root;
-		SmbFile toFolder;
 		try {
 			root = new SmbFile(SMB_FILE);
-			toFolder = new SmbFile(remoteZipDest);
-			ofs = toFolder.getOutputStream();
-			zos = new ZipOutputStream(ofs);
-			buf = new byte[16 * 1024 * 1024];
-			for (SmbFile sf : this.fileList) {
-				ifs = sf.getInputStream();
-				String relativePath = new URI(root.getParent()).relativize(sf.getURL().toURI()).toString();
-				System.out.println(relativePath);
-				ze = new ZipEntry(relativePath);
-				zos.putNextEntry(ze);
-				while ((len = ifs.read(buf)) > 0) {
-					zos.write(buf, 0, len);
+			System.out.println(root.getDiskFreeSpace() / 1024 / 1024 / 1024 + "GB");
+			ifs = root.getInputStream();
+			BufferedReader br = new BufferedReader(new InputStreamReader(ifs));
+			while (true) {
+				String line = br.readLine();
+				if (line == null) {
+					break;
 				}
-			}
+				System.out.println(line);
+			}	
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} finally {
 			try {
 				if (ifs != null) {
 					ifs.close();
-				}
-				if (zos != null) {
-					zos.close();
-				}
-				if (ofs != null) {
-					ofs.close();
 				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

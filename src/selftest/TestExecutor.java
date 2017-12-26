@@ -7,6 +7,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.exec.environment.EnvironmentUtils;
+
 import selftest.algo.AlgoExerTester;
 import selftest.algo.AlgoExerTesterFactory;
 
@@ -69,15 +71,8 @@ public class TestExecutor {
 		cet.exec();
 	}
 
-	private static void oddExec() {
-		List<Integer> l = new ArrayList<Integer>();
-		l.add(1);
-		l.add(2);
-		Integer[] arr = new Integer[l.size()];
-		l.toArray(arr);
-		for (Integer i : arr) {
-			System.out.println(i);
-		}
+	private static void oddExec() throws IOException {
+
 	}
 	
 	private static void pr(String s) {
@@ -109,6 +104,15 @@ public class TestExecutor {
 		aet.exec();
 	}
 	
+	private static void bitCalTest() {
+		BitCalTester bct = new BitCalTester();
+		bct.exec();
+	}
+	
+	private static void UtilTest() {
+		UtilTester ut = new UtilTester();
+		ut.exec();
+	}
 	private static void orderTester() {
 		AlgoExerTester aet = null;
 //		aet = AlgoExerTesterFactory.getTester(AlgoExerTesterFactory.Exercise.INSERT_SORT);
@@ -125,7 +129,7 @@ public class TestExecutor {
 
 	public static void main(String[] args) {
 		System.out.println("start up from executor");
-		cmdExecTester();
+		smbFileTestExec();
 	}
 
 }

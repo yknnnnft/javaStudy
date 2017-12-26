@@ -9,12 +9,14 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
+import java.util.Map;
 
 import org.apache.commons.exec.CommandLine;
 import org.apache.commons.exec.DefaultExecutor;
 import org.apache.commons.exec.ExecuteException;
 import org.apache.commons.exec.Executor;
 import org.apache.commons.exec.PumpStreamHandler;
+import org.apache.commons.exec.environment.EnvironmentUtils;
 
 public class CmdExecTester {
 
@@ -22,7 +24,12 @@ public class CmdExecTester {
 	private final String cmd_2 = "cmd /c echo $PWD";
 
 	public void exec() {
-		apacheExecutorTest();
+		try {
+			apacheExec();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	private String getCmd() {
@@ -116,42 +123,71 @@ public class CmdExecTester {
 		}
 	}
 
-	public void apacheExecutorTest() {
-//		CommandLine cl = new CommandLine("cmd.exe");
-//		cl.addArgument("dir");
-//		cl.addArgument("c:\\");
-		CommandLine cl = new CommandLine("ping");
-		cl.addArgument("192.168.182.213");
-		try {
-			Executor e = new DefaultExecutor();
-			PipedOutputStream os = new PipedOutputStream();
-			PipedInputStream is = new PipedInputStream(os);
-			PumpStreamHandler psh = new PumpStreamHandler(os);
-			e.setStreamHandler(psh);
-			int ret;
-			Thread t = new Thread() {
-				@Override
-				public void run() {
-					System.out.println("Reading log...");
-					BufferedReader br = new BufferedReader(new InputStreamReader(is));
+	public Thread setLogRetrievingThread(Executor executor) {
+		
+		Thread t = new Thread() {
+			@Override
+			public void run() {
+				System.out.println("Reading log...");
+				PipedOutputStream pos = new PipedOutputStream();
+				PipedInputStream pis = new PipedInputStream();
+				BufferedReader br = null;
+				try {
+					pis.connect(pos);
+					PumpStreamHandler psh = new PumpStreamHandler(pos);
+					br = new BufferedReader(new InputStreamReader(pis));
+					executor.setStreamHandler(psh);
+					System.out.println("starting reading line");
 					while (true) {
+						String line = br.readLine();
+						if (line == null) {
+							System.out.println("break");
+							break;
+						}
+						System.out.println("line: " + line);
+					}
+					
+				}
+				catch(IOException e) {
+					e.printStackTrace();
+				}
+				finally {
+					if (br != null) {
 						try {
-							String line = br.readLine();
-							if (line == null)
-								break;
-							System.out.println(line);
+							System.out.println("to close br...");
+							br.close();
+							this.interrupt();
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-
 					}
-					this.interrupt();
 				}
-			};
-			t.start();
-			ret = e.execute(cl);
-			while (t.isAlive()) { }
+				System.out.println("is to interrupt");
+				this.interrupt();
+			}
+		};
+		t.start();
+		return t;
+	}
+	private void apacheExec() throws IOException {
+//		CommandLine cl = new CommandLine("cmd.exe");
+//		cl.addArgument("dir");
+//		cl.addArgument("c:\\");
+//		System.setProperty("nls_lang", "utf-8");
+		@SuppressWarnings("rawtypes")
+		Map env = EnvironmentUtils.getProcEnvironment();
+		EnvironmentUtils.addVariableToEnvironment(env, "LC_NAME=ja_JP.sjis");
+		CommandLine cl = new CommandLine("env");
+//		cl.addArguments(new String[] {"$HOME"});
+		try {
+			Executor e = new DefaultExecutor();
+			Thread t = setLogRetrievingThread(e);
+			System.out.println("starting thread...");
+			int ret;
+			System.out.println("executing command...");
+			ret = e.execute(cl, env);
+			while (t.isAlive()) {};
 			System.out.println(ret);
 		} catch (ExecuteException e1) {
 			// TODO Auto-generated catch block
