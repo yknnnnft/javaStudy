@@ -1,13 +1,6 @@
 package selftest;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.commons.exec.environment.EnvironmentUtils;
 
 import selftest.algo.AlgoExerTester;
 import selftest.algo.AlgoExerTesterFactory;
@@ -72,11 +65,29 @@ public class TestExecutor {
 	}
 
 	private static void oddExec() throws IOException {
-
+		double progress = 15.123;
+		System.out.println(String.format("%.2f%%", progress));
 	}
 	
-	private static void pr(String s) {
-		System.out.println(s);
+	private static void zipTesterExec() {
+		ZipTester zt = new ZipTester();
+		zt.exec();
+	}
+	
+	private static void pr() {
+		try {
+			throw new Exception("test a exception");
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+			System.out.println(e.getCause());
+			System.out.println(e.toString());
+			System.out.println("aaa");
+			for (StackTraceElement se : e.getStackTrace()) {
+				System.out.println("at " + se.toString());
+			}
+		}
 	}
 	
 	private static void streamTesterExec() {
@@ -113,6 +124,12 @@ public class TestExecutor {
 		UtilTester ut = new UtilTester();
 		ut.exec();
 	}
+	
+	private static void SSHTest() {
+		SshTester st = new SshTester();
+		st.exec();
+	}
+
 	private static void orderTester() {
 		AlgoExerTester aet = null;
 //		aet = AlgoExerTesterFactory.getTester(AlgoExerTesterFactory.Exercise.INSERT_SORT);
@@ -127,9 +144,9 @@ public class TestExecutor {
 //		aet.exec();
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		System.out.println("start up from executor");
-		smbFileTestExec();
+		SSHTest();
 	}
 
 }

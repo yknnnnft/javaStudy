@@ -1,17 +1,16 @@
 package selftest;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class URITester {
 
 	private String base = "/home/nrl/Documents/";
-	private String sub = "/home/nrl/Documents/my test/";
+	private String sub = "def.txt";
 	private String uri = "/home/nrl/Documents/my test/test.txt";
 	
 	private URI baseURI;
@@ -24,9 +23,11 @@ public class URITester {
 	
 	
 	public void exec() {
-		this.uriPath = Paths.get(uri);
-		System.out.println(uriPath.getFileName());
-
+		Path pBase = Paths.get(base);
+		Path pSub = Paths.get(sub);
+		System.out.println(pBase.resolve(pSub));
+		System.out.println(pBase.resolve(pSub.toString()));
+		System.out.println(pBase.resolve(pSub).toUri());
 	}
 	
 	private void setURI() throws URISyntaxException, UnsupportedEncodingException {

@@ -11,8 +11,11 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -25,7 +28,7 @@ import jcifs.smb.SmbFileInputStream;
 public class SmbFileTester {
 
 	private static final String SMB_FILE = "smb://pe:pe@nas177/share/個人用/li_re/CU/setup/test.txt";
-	private static final String SMB_DIRECTORY = "smb://pe:pe@nas177/share/hrsolap780/CompanyUpdater/CIU12200/";
+	private static final String SMB_DIRECTORY = "smb://cjkmain:cjkmain05@192.168.182.156/worksap/";
 	
 	private static final String OPSTECH = "smb://zuo_y:zuo_y@opstech/installer/COMPANY UPDATER/1.2.2.00-SNAPSHOT/CIU12200/";
 	
@@ -35,7 +38,7 @@ public class SmbFileTester {
 	private ArrayList<SmbFile> fileList = new ArrayList<SmbFile>();
 
 	public void exec() {
-		readFile();
+		getFileList(SMB_DIRECTORY);
 	}
 	
 	private void writeFile() {
@@ -46,12 +49,17 @@ public class SmbFileTester {
 	private List<String> getFileList(String node) {
 		List<String> files = new ArrayList<String>();
 		try {
+			String pString = "db-_abc_[-]%s.dmpdp"
+					.replaceAll("%s", "\\\\d")
+					.replaceAll("(\\[.*)(-)(.*\\])", "$1\\\\$2$3")
+					.replaceAll("([\\[|\\]|\\{|\\}|\\.|\\+])", "\\\\$1");
+			System.out.println(pString);
 			SmbFile sf = new SmbFile(node);
-			if (sf.isDirectory()) {
-				for (SmbFile s : sf.listFiles()) {
-					System.out.println(s.getName());
-				}
-				
+			files = Arrays.asList(sf.list());
+			Pattern p = Pattern.compile(pString);
+			List<String> dmpFiles = files.stream().filter(dmp -> p.matcher(dmp).matches()).collect(Collectors.toList());
+			for (String dmpFile : dmpFiles) {
+				System.out.println(dmpFile);
 			}
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block

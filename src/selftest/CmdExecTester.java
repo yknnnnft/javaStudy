@@ -14,8 +14,10 @@ import java.util.Map;
 import org.apache.commons.exec.CommandLine;
 import org.apache.commons.exec.DefaultExecutor;
 import org.apache.commons.exec.ExecuteException;
+import org.apache.commons.exec.ExecuteWatchdog;
 import org.apache.commons.exec.Executor;
 import org.apache.commons.exec.PumpStreamHandler;
+import org.apache.commons.exec.ShutdownHookProcessDestroyer;
 import org.apache.commons.exec.environment.EnvironmentUtils;
 
 public class CmdExecTester {
@@ -125,21 +127,23 @@ public class CmdExecTester {
 
 	public Thread setLogRetrievingThread(Executor executor) {
 		
+		PipedOutputStream pos = new PipedOutputStream();
+		PipedInputStream pis = new PipedInputStream();
+		PumpStreamHandler psh = new PumpStreamHandler(pos);
+		executor.setStreamHandler(psh);
 		Thread t = new Thread() {
 			@Override
 			public void run() {
 				System.out.println("Reading log...");
-				PipedOutputStream pos = new PipedOutputStream();
-				PipedInputStream pis = new PipedInputStream();
 				BufferedReader br = null;
 				try {
 					pis.connect(pos);
-					PumpStreamHandler psh = new PumpStreamHandler(pos);
 					br = new BufferedReader(new InputStreamReader(pis));
-					executor.setStreamHandler(psh);
 					System.out.println("starting reading line");
+					executor.getWatchdog().destroyProcess();
 					while (true) {
 						String line = br.readLine();
+						System.out.println("★★★★★★★★★★★★★");
 						if (line == null) {
 							System.out.println("break");
 							break;
@@ -170,6 +174,7 @@ public class CmdExecTester {
 		t.start();
 		return t;
 	}
+
 	private void apacheExec() throws IOException {
 //		CommandLine cl = new CommandLine("cmd.exe");
 //		cl.addArgument("dir");
@@ -178,10 +183,13 @@ public class CmdExecTester {
 		@SuppressWarnings("rawtypes")
 		Map env = EnvironmentUtils.getProcEnvironment();
 		EnvironmentUtils.addVariableToEnvironment(env, "LC_NAME=ja_JP.sjis");
-		CommandLine cl = new CommandLine("env");
+//		CommandLine cl = new CommandLine("env");
+		CommandLine cl = new CommandLine("sleep");
+		cl.addArgument("2s");
 //		cl.addArguments(new String[] {"$HOME"});
 		try {
 			Executor e = new DefaultExecutor();
+			e.setWatchdog(new ExecuteWatchdog(ExecuteWatchdog.INFINITE_TIMEOUT));
 			Thread t = setLogRetrievingThread(e);
 			System.out.println("starting thread...");
 			int ret;
@@ -202,7 +210,12 @@ public class CmdExecTester {
 		// TODO Auto-generated method stub
 		System.out.println("startup from tester");
 		CmdExecTester cet = new CmdExecTester();
-		cet.exec();
+		try {
+			cet.apacheExec();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
