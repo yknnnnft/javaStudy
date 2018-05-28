@@ -31,7 +31,6 @@ public class ClassInitializingTester {
 				
 		protected static String staticStr = "Static Variable in Sub";
 		protected String str = "Variable in Sub";
-		protected int i = 3;
 		
 		static {
 			System.out.println(staticStr);
@@ -39,6 +38,7 @@ public class ClassInitializingTester {
 		}
 		
 		{
+			i = 3;
 			System.out.println(str);
 			System.out.println("i = " + i);
 			System.out.println("initializing block in Sub");
